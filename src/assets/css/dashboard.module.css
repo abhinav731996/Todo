@@ -1,0 +1,28 @@
+.todo-container {
+  max-width: 600px;
+}
+
+.todo-card {
+  border-radius: 15px;
+  background: #ffffff;
+}
+
+.todo-item {
+  transition: 0.3s;
+}
+
+.todo-item:hover {
+  background: #f8f9fa;
+}
+
+.todo-text {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.todo-done {
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: line-through;
+  color: gray;
+}

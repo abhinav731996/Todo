@@ -2,8 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import React, { useReducer } from "react";
-
+import React, { useReducer } from "react"
 
 const initialState = {
   input: "",
@@ -57,46 +56,71 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <>
-      <h2>Todo List....</h2>
+    <div className="container mt-5 todo-container">
+      <div className="card shadow-lg p-4 todo-card">
+        <h2 className="text-center mb-4 fw-bold text-primary">
+          Todo List App
+        </h2>
 
-      <input
-        type="text"
-        placeholder="Enter todo"
-        value={state.input}
-        onChange={(e) =>
-          dispatch({ type: "SET_INPUT", payload: e.target.value })
-        }
-      />
+        {/* Input Section */}
+        <div className="input-group mb-4">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Enter your todo..."
+            value={state.input}
+            onChange={(e) =>
+              dispatch({ type: "SET_INPUT", payload: e.target.value })
+            }
+          />
 
-      <button onClick={() => dispatch({ type: "ADD_TODO" })}>Add</button>
+          <button
+            className="btn btn-primary"
+            onClick={() => dispatch({ type: "ADD_TODO" })}
+          >
+            Add
+          </button>
+        </div>
 
-      <ul>
-        {state.todoList.map((t) => (
-          <li key={t.id}>
-            <input
-              type="checkbox"
-              checked={t.completed}
-              onChange={() =>
-                dispatch({ type: "TOGGLE_TODO", payload: t.id })
-              }
-            />
+        {/* Todo List */}
+        {state.todoList.length === 0 ? (
+          <p className="text-center text-muted">No todos added yet </p>
+        ) : (
+          <ul className="list-group">
+            {state.todoList.map((t) => (
+              <li
+                key={t.id}
+                className="list-group-item d-flex justify-content-between align-items-center todo-item"
+              >
+                <div className="d-flex align-items-center gap-2">
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    checked={t.completed}
+                    onChange={() =>
+                      dispatch({ type: "TOGGLE_TODO", payload: t.id })
+                    }
+                  />
 
-            <span className={t.completed ? "strikeThrough" : ""}>
-              {t.text}
-            </span>
+                  <span className={t.completed ? "strikeThrough" : "todo-text"}>
+                    {t.text}
+                  </span>
+                </div>
 
-            <button
-              onClick={() => dispatch({ type: "DELETE_TODO", payload: t.id })}
-            >
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
-        
-
-    </>
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() =>
+                    dispatch({ type: "DELETE_TODO", payload: t.id })
+                  }
+                >
+                  Delete
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
   )
 }
 
